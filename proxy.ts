@@ -1,16 +1,20 @@
 import { updateSession } from "@/lib/supabase/middleware"
 import { NextResponse, type NextRequest } from "next/server"
 
-export const middleware = async (request: NextRequest) => {
+const PUBLIC_PATHS = ["/login"]
+
+export const proxy = async (request: NextRequest) => {
   const { response, user } = await updateSession(request)
   const { pathname } = request.nextUrl
 
-  if (!user && pathname.startsWith("/dashboard")) {
+  const isPublic = PUBLIC_PATHS.some((p) => pathname.startsWith(p))
+
+  if (!user && !isPublic) {
     return NextResponse.redirect(new URL("/login", request.url))
   }
 
   if (user && pathname === "/login") {
-    return NextResponse.redirect(new URL("/dashboard", request.url))
+    return NextResponse.redirect(new URL("/", request.url))
   }
 
   return response
