@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/server"
-import { CategoryList } from "@/components/menu/category-list"
 import { ProductCard } from "@/components/menu/product-card"
 import {
   Breadcrumb,
@@ -49,12 +48,7 @@ export default async function MenuPage() {
       </header>
 
       <div className="p-6 lg:p-8">
-        <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
-          <aside>
-            <CategoryList categories={categories ?? []} />
-          </aside>
-
-          <main className="space-y-6">
+        <main className="space-y-6">
             {(products ?? []).length === 0 ? (
               <div className="flex flex-col items-center justify-center rounded-lg border border-dashed py-16 text-center">
                 <p className="text-muted-foreground mb-4">No products yet</p>
@@ -90,8 +84,7 @@ export default async function MenuPage() {
                 )}
               </>
             )}
-          </main>
-        </div>
+        </main>
       </div>
     </>
   )
