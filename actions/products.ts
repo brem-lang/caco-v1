@@ -20,6 +20,7 @@ export const createCategory = async (values: CategoryFormValues) => {
     })
     if (error) return { error: error.message }
     revalidatePath("/menu")
+    revalidatePath("/categories")
     return { success: true }
   } catch {
     return { error: "Failed to create category" }
@@ -41,6 +42,7 @@ export const updateCategory = async (id: string, values: CategoryFormValues) => 
     }).eq("id", id)
     if (error) return { error: error.message }
     revalidatePath("/menu")
+    revalidatePath("/categories")
     return { success: true }
   } catch {
     return { error: "Failed to update category" }
@@ -53,6 +55,7 @@ export const deleteCategory = async (id: string) => {
     const { error } = await supabase.from("categories").delete().eq("id", id)
     if (error) return { error: error.message }
     revalidatePath("/menu")
+    revalidatePath("/categories")
     return { success: true }
   } catch {
     return { error: "Failed to delete category" }

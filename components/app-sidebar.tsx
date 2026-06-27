@@ -11,6 +11,7 @@ import {
   BarChart3Icon,
   Settings2Icon,
   CoffeeIcon,
+  TagIcon,
 } from "lucide-react"
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
@@ -45,6 +46,11 @@ const navItems = [
     title: "Menu",
     url: "/menu",
     icon: <UtensilsIcon />,
+  },
+  {
+    title: "Categories",
+    url: "/categories",
+    icon: <TagIcon />,
   },
   {
     title: "Inventory",
