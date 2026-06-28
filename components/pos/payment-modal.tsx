@@ -35,8 +35,9 @@ type Props = {
 export const PaymentModal = ({ open, onClose, cashierId, cashierName, onSuccess }: Props) => {
   const [method, setMethod] = useState<PaymentMethod>("cash")
   const [tendered, setTendered] = useState("")
+  const [customerName, setCustomerName] = useState("")
   const [isPending, startTransition] = useTransition()
-  const { items, subtotal, tax, total, discount, clearCart } = useCart()
+  const { items, subtotal, total, discount, clearCart } = useCart()
 
   const tenderedAmount = parseFloat(tendered) || 0
   const change = method === "cash" ? Math.max(0, tenderedAmount - total) : 0
@@ -46,9 +47,9 @@ export const PaymentModal = ({ open, onClose, cashierId, cashierName, onSuccess 
     startTransition(async () => {
       const result = await createOrder({
         cashier_id: cashierId,
+        customer_name: customerName.trim() || undefined,
         payment_method: method,
         subtotal,
-        tax,
         discount,
         total,
         items: items.map((item) => ({
@@ -69,9 +70,9 @@ export const PaymentModal = ({ open, onClose, cashierId, cashierName, onSuccess 
 
       const receipt: ReceiptData = {
         orderNumber: result.orderNumber!,
+        customerName: customerName.trim() || undefined,
         items: [...items],
         subtotal,
-        tax,
         discount,
         total,
         payment: { method, amountTendered: tenderedAmount, change },
@@ -81,6 +82,7 @@ export const PaymentModal = ({ open, onClose, cashierId, cashierName, onSuccess 
 
       clearCart()
       setTendered("")
+      setCustomerName("")
       setMethod("cash")
       onSuccess(receipt)
     })
@@ -97,6 +99,16 @@ export const PaymentModal = ({ open, onClose, cashierId, cashierName, onSuccess 
           <div className="text-center">
             <p className="text-3xl font-bold">{formatCurrency(total)}</p>
             <p className="text-sm text-muted-foreground">{items.length} item{items.length !== 1 ? "s" : ""}</p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="customer-name">Customer Name <span className="text-muted-foreground">(optional)</span></Label>
+            <Input
+              id="customer-name"
+              placeholder="e.g. Juan dela Cruz"
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+            />
           </div>
 
           <div className="space-y-2">

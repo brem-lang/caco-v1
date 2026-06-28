@@ -57,7 +57,7 @@ export default async function MenuItemPage({
         </Breadcrumb>
       </header>
 
-      <div className="p-6 lg:p-8">
+      <div className="p-4 sm:p-6 lg:p-8">
         <div className="mb-6">
           <h1 className="text-2xl font-semibold tracking-tight">
             {isNew ? "New Product" : "Edit Product"}

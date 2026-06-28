@@ -20,14 +20,14 @@ export const createOrder = async (values: CreateOrderValues) => {
       .from("orders")
       .insert({
         cashier_id: parsed.data.cashier_id,
-        status: "completed",
+        customer_name: parsed.data.customer_name ?? null,
+        status: "pending",
         payment_method: parsed.data.payment_method,
         subtotal: parsed.data.subtotal,
-        tax: parsed.data.tax,
+        tax: 0,
         discount: parsed.data.discount,
         total: parsed.data.total,
         notes: parsed.data.notes ?? null,
-        completed_at: new Date().toISOString(),
       })
       .select("id, order_number")
       .single()
@@ -100,6 +100,36 @@ async function deductInventory(
         created_by: user?.id ?? null,
       })
     }
+  }
+}
+
+export const deleteOrder = async (id: string) => {
+  try {
+    const supabase = await createClient()
+    const { error } = await supabase.from("orders").delete().eq("id", id)
+    if (error) return { error: error.message }
+    revalidatePath("/orders")
+    revalidatePath("/")
+    return { success: true }
+  } catch {
+    return { error: "Failed to delete order" }
+  }
+}
+
+export const voidOrder = async (id: string) => {
+  try {
+    const supabase = await createClient()
+    const { error } = await supabase
+      .from("orders")
+      .update({ status: "cancelled" })
+      .eq("id", id)
+    if (error) return { error: error.message }
+    revalidatePath("/orders")
+    revalidatePath(`/orders/${id}`)
+    revalidatePath("/")
+    return { success: true }
+  } catch {
+    return { error: "Failed to void order" }
   }
 }
 

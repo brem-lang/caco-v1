@@ -110,7 +110,7 @@ export default async function DashboardPage() {
         </div>
       </header>
 
-      <div className="p-6 lg:p-8 space-y-6">
+      <div className="p-4 sm:p-6 lg:p-8 space-y-6">
         {lowStockCount > 0 && <LowStockAlert items={inventoryWithStatus} />}
 
         <StatsCards

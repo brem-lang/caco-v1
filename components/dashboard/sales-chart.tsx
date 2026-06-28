@@ -28,7 +28,7 @@ export const SalesChart = ({ data }: { data: DataPoint[] }) => {
 
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
+      <CardHeader className="flex flex-col gap-2 pb-2 sm:flex-row sm:items-center sm:justify-between">
         <CardTitle className="text-base">Revenue — Last 7 Days</CardTitle>
         <div className="flex gap-1">
           <Button
@@ -51,7 +51,7 @@ export const SalesChart = ({ data }: { data: DataPoint[] }) => {
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={220}>
-          <AreaChart data={data} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+          <AreaChart data={data} margin={{ top: 5, right: 5, left: 10, bottom: 5 }}>
             <defs>
               <linearGradient id="colorMetric" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />

@@ -12,9 +12,9 @@ export const orderItemSchema = z.object({
 
 export const createOrderSchema = z.object({
   cashier_id: z.string().uuid(),
+  customer_name: z.string().max(100).optional(),
   payment_method: z.enum(["cash", "card", "gcash", "maya"]),
   subtotal: z.number().min(0),
-  tax: z.number().min(0),
   discount: z.number().min(0).default(0),
   total: z.number().min(0),
   notes: z.string().optional(),

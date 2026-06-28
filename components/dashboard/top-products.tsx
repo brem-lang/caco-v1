@@ -18,11 +18,11 @@ export const TopProducts = ({ products }: { products: TopProduct[] }) => {
         ) : (
           products.map((product, i) => (
             <div key={i} className="space-y-1">
-              <div className="flex items-center justify-between text-sm">
-                <span className="font-medium truncate">{product.name}</span>
-                <div className="flex gap-3 shrink-0 text-right">
+              <div className="flex items-center justify-between gap-2 text-sm">
+                <span className="font-medium truncate min-w-0">{product.name}</span>
+                <div className="flex gap-2 shrink-0 text-right">
                   <span className="text-muted-foreground">{product.quantity} sold</span>
-                  <span className="font-semibold w-20">{formatCurrency(product.revenue)}</span>
+                  <span className="font-semibold">{formatCurrency(product.revenue)}</span>
                 </div>
               </div>
               <Progress value={(product.quantity / maxQty) * 100} className="h-1.5" />

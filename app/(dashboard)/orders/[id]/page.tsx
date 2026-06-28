@@ -60,19 +60,27 @@ export default async function OrderDetailPage({
         </Breadcrumb>
       </header>
 
-      <div className="p-6 lg:p-8 space-y-6 max-w-3xl">
+      <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-3xl">
         <div className="flex items-center gap-3">
           <h1 className="text-2xl font-semibold tracking-tight">Order #{order.order_number}</h1>
           <OrderStatusBadge status={order.status} />
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-xs text-muted-foreground">Date</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm font-medium">{formatDate(order.created_at)}</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-xs text-muted-foreground">Customer</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm font-medium">{order.customer_name ?? "—"}</p>
             </CardContent>
           </Card>
           <Card>
@@ -133,10 +141,6 @@ export default async function OrderDetailPage({
                 <span>-{formatCurrency(order.discount ?? 0)}</span>
               </div>
             )}
-            <div className="flex justify-between text-muted-foreground">
-              <span>Tax</span>
-              <span>{formatCurrency(order.tax ?? 0)}</span>
-            </div>
             <Separator />
             <div className="flex justify-between font-bold">
               <span>Total</span>

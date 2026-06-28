@@ -72,7 +72,7 @@ export default async function InventoryItemPage({
         </Breadcrumb>
       </header>
 
-      <div className="p-6 lg:p-8 space-y-8">
+      <div className="p-4 sm:p-6 lg:p-8 space-y-8">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight mb-6">
             {isNew ? "New Inventory Item" : `Edit — ${item?.name}`}

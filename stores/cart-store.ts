@@ -12,11 +12,8 @@ type CartStore = {
   setDiscount: (amount: number) => void
   clearCart: () => void
   subtotal: () => number
-  tax: () => number
   total: () => number
 }
-
-const TAX_RATE = 0.12
 
 export const useCartStore = create<CartStore>((set, get) => ({
   items: [],
@@ -71,16 +68,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
     return items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0)
   },
 
-  tax: () => {
-    const subtotal = get().subtotal()
-    const discount = get().discount
-    return Math.max(0, (subtotal - discount) * TAX_RATE)
-  },
-
   total: () => {
     const subtotal = get().subtotal()
     const discount = get().discount
-    const tax = get().tax()
-    return Math.max(0, subtotal - discount + tax)
+    return Math.max(0, subtotal - discount)
   },
 }))

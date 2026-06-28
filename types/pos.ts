@@ -17,9 +17,9 @@ export type PaymentInfo = {
 
 export type ReceiptData = {
   orderNumber: number
+  customerName?: string
   items: CartItem[]
   subtotal: number
-  tax: number
   discount: number
   total: number
   payment: PaymentInfo

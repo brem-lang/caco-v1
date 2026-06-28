@@ -9,7 +9,6 @@ export const useCart = () => {
     items: store.items,
     discount: store.discount,
     subtotal: store.subtotal(),
-    tax: store.tax(),
     total: store.total(),
     addItem: store.addItem,
     removeItem: store.removeItem,

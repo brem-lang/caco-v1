@@ -48,7 +48,7 @@ export default async function InventoryPage() {
         </div>
       </header>
 
-      <div className="p-6 lg:p-8 space-y-4">
+      <div className="p-4 sm:p-6 lg:p-8 space-y-4">
         <LowStockAlert items={itemsWithStatus} />
         <StockTable items={itemsWithStatus} />
       </div>

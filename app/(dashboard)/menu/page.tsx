@@ -47,7 +47,7 @@ export default async function MenuPage() {
         </div>
       </header>
 
-      <div className="p-6 lg:p-8">
+      <div className="p-4 sm:p-6 lg:p-8">
         <main className="space-y-6">
             {(products ?? []).length === 0 ? (
               <div className="flex flex-col items-center justify-center rounded-lg border border-dashed py-16 text-center">

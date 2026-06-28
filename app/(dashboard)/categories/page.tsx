@@ -43,7 +43,7 @@ export default async function CategoriesPage() {
         </div>
       </header>
 
-      <div className="p-6 lg:p-8 space-y-6">
+      <div className="p-4 sm:p-6 lg:p-8 space-y-6">
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
           <span>{list.length} total</span>
           <span>{activeCount} active</span>

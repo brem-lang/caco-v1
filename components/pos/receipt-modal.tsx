@@ -36,6 +36,9 @@ export const ReceiptModal = ({
             <p className="font-bold text-base">Coffee Shop POS</p>
             <p className="text-muted-foreground text-xs">Order #{receipt.orderNumber}</p>
             <p className="text-muted-foreground text-xs">{formatDate(receipt.createdAt)}</p>
+            {receipt.customerName && (
+              <p className="text-muted-foreground text-xs">Customer: {receipt.customerName}</p>
+            )}
             <p className="text-muted-foreground text-xs">Cashier: {receipt.cashierName}</p>
           </div>
 
@@ -67,10 +70,6 @@ export const ReceiptModal = ({
                 <span>-{formatCurrency(receipt.discount)}</span>
               </div>
             )}
-            <div className="flex justify-between text-muted-foreground">
-              <span>Tax (12%)</span>
-              <span>{formatCurrency(receipt.tax)}</span>
-            </div>
             <div className="flex justify-between font-bold">
               <span>TOTAL</span>
               <span>{formatCurrency(receipt.total)}</span>

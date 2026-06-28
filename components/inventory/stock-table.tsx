@@ -28,7 +28,7 @@ import { Label } from "@/components/ui/label"
 import { TablePagination } from "@/components/ui/table-pagination"
 import { PencilIcon, Trash2Icon, PackagePlusIcon, SearchIcon } from "lucide-react"
 
-const PAGE_SIZE = 15
+const PAGE_SIZE = 10
 
 export const StockTable = ({ items }: { items: InventoryItemWithStatus[] }) => {
   const [restockTarget, setRestockTarget] = useState<InventoryItemWithStatus | null>(null)

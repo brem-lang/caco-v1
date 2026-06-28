@@ -16,7 +16,7 @@ interface CartPanelProps {
 }
 
 export const CartPanel = ({ onCheckout, className, hideHeader }: CartPanelProps) => {
-  const { items, discount, subtotal, tax, total, removeItem, updateQty, setDiscount, isEmpty } = useCart()
+  const { items, discount, subtotal, total, removeItem, updateQty, setDiscount, isEmpty } = useCart()
 
   return (
     <div className={cn("flex flex-col h-full border-l", className)}>
@@ -103,10 +103,6 @@ export const CartPanel = ({ onCheckout, className, hideHeader }: CartPanelProps)
                   <span className="text-green-600">-{formatCurrency(discount)}</span>
                 </div>
               )}
-              <div className="flex justify-between text-muted-foreground">
-                <span>Tax (12%)</span>
-                <span>{formatCurrency(tax)}</span>
-              </div>
               <div className="flex justify-between font-bold text-base">
                 <span>Total</span>
                 <span>{formatCurrency(total)}</span>

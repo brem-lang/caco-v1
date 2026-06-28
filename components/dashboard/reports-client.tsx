@@ -48,11 +48,10 @@ export const ReportsClient = ({ orders }: { orders: Order[] }) => {
       (acc, o) => ({
         gross: acc.gross + (o.subtotal ?? 0),
         discount: acc.discount + (o.discount ?? 0),
-        tax: acc.tax + (o.tax ?? 0),
         net: acc.net + (o.total ?? 0),
         count: acc.count + 1,
       }),
-      { gross: 0, discount: 0, tax: 0, net: 0, count: 0 }
+      { gross: 0, discount: 0, net: 0, count: 0 }
     )
   }, [filtered])
 
