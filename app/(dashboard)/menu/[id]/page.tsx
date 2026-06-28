@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { ProductForm } from "@/components/menu/product-form"
+import { RecipeManager } from "@/components/menu/recipe-manager"
+import { Separator } from "@/components/ui/separator"
+import { SidebarTrigger } from "@/components/ui/sidebar"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,8 +12,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
-import { SidebarTrigger } from "@/components/ui/sidebar"
 
 export default async function MenuItemPage({
   params,
@@ -26,18 +27,36 @@ export default async function MenuItemPage({
     .eq("is_active", true)
     .order("sort_order")
 
-  let product = null
-  if (id !== "new") {
-    const { data } = await supabase
-      .from("products")
-      .select("*, variants:product_variants(*)")
-      .eq("id", id)
-      .single()
-    if (!data) notFound()
-    product = data
-  }
-
   const isNew = id === "new"
+
+  let product = null
+  let ingredients = null
+  let inventoryItems = null
+
+  if (!isNew) {
+    const [{ data: productData }, { data: ingredientData }, { data: inventoryData }] =
+      await Promise.all([
+        supabase
+          .from("products")
+          .select("*, variants:product_variants(*)")
+          .eq("id", id)
+          .single(),
+        supabase
+          .from("product_ingredients")
+          .select("*, inventory_items(name, unit)")
+          .eq("product_id", id)
+          .order("created_at" as never),
+        supabase
+          .from("inventory_items")
+          .select("*")
+          .order("name"),
+      ])
+
+    if (!productData) notFound()
+    product = productData
+    ingredients = ingredientData ?? []
+    inventoryItems = inventoryData ?? []
+  }
 
   return (
     <>
@@ -57,16 +76,28 @@ export default async function MenuItemPage({
         </Breadcrumb>
       </header>
 
-      <div className="p-4 sm:p-6 lg:p-8">
-        <div className="mb-6">
-          <h1 className="text-2xl font-semibold tracking-tight">
+      <div className="p-4 sm:p-6 lg:p-8 max-w-2xl space-y-10">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight mb-6">
             {isNew ? "New Product" : "Edit Product"}
           </h1>
+          <ProductForm
+            categories={categories ?? []}
+            product={product as Parameters<typeof ProductForm>[0]["product"]}
+          />
         </div>
-        <ProductForm
-          categories={categories ?? []}
-          product={product as Parameters<typeof ProductForm>[0]["product"]}
-        />
+
+        {!isNew && ingredients !== null && inventoryItems !== null && (
+          <>
+            <Separator />
+            <RecipeManager
+              productId={id}
+              productName={product?.name ?? ""}
+              ingredients={ingredients as Parameters<typeof RecipeManager>[0]["ingredients"]}
+              inventoryItems={inventoryItems}
+            />
+          </>
+        )}
       </div>
     </>
   )

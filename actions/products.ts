@@ -155,6 +155,58 @@ export const deleteProduct = async (id: string) => {
   }
 }
 
+export const addIngredient = async (
+  productId: string,
+  inventoryItemId: string,
+  quantityUsed: number
+) => {
+  if (!productId || !inventoryItemId) return { error: "Missing required fields" }
+  if (quantityUsed <= 0) return { error: "Quantity must be greater than 0" }
+
+  try {
+    const supabase = await createClient()
+    const { error } = await supabase.from("product_ingredients").insert({
+      product_id: productId,
+      inventory_item_id: inventoryItemId,
+      quantity_used: quantityUsed,
+    })
+    if (error) return { error: error.message }
+    revalidatePath(`/menu/${productId}`)
+    return { success: true }
+  } catch {
+    return { error: "Failed to add ingredient" }
+  }
+}
+
+export const updateIngredient = async (ingredientId: string, quantityUsed: number, productId: string) => {
+  if (quantityUsed <= 0) return { error: "Quantity must be greater than 0" }
+
+  try {
+    const supabase = await createClient()
+    const { error } = await supabase
+      .from("product_ingredients")
+      .update({ quantity_used: quantityUsed })
+      .eq("id", ingredientId)
+    if (error) return { error: error.message }
+    revalidatePath(`/menu/${productId}`)
+    return { success: true }
+  } catch {
+    return { error: "Failed to update ingredient" }
+  }
+}
+
+export const removeIngredient = async (ingredientId: string, productId: string) => {
+  try {
+    const supabase = await createClient()
+    const { error } = await supabase.from("product_ingredients").delete().eq("id", ingredientId)
+    if (error) return { error: error.message }
+    revalidatePath(`/menu/${productId}`)
+    return { success: true }
+  } catch {
+    return { error: "Failed to remove ingredient" }
+  }
+}
+
 export const toggleProductAvailability = async (id: string, isAvailable: boolean) => {
   try {
     const supabase = await createClient()
