@@ -16,17 +16,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Coffee Shop POS",
-  description: "Point of Sale & Inventory Management System",
+  title: "CA.CO",
+  description: "Chill Area Coffee — Point of Sale & Management System",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Coffee POS",
+    title: "CA.CO",
   },
   icons: {
-    icon: "/favicon-32x32.png",
-    apple: "/apple-touch-icon.png",
+    icon: "/logo.png",
+    apple: "/logo.png",
   },
 };
 

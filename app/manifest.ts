@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Coffee Shop POS",
-    short_name: "Coffee POS",
-    description: "Point of Sale & Inventory Management System",
+    name: "CA.CO",
+    short_name: "CA.CO",
+    description: "Chill Area Coffee — Point of Sale & Management System",
     start_url: "/",
     display: "standalone",
     orientation: "any",
@@ -13,23 +13,23 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["business", "productivity"],
     icons: [
       {
-        src: "/favicon-32x32.png",
+        src: "/logo.png",
         sizes: "32x32",
         type: "image/png",
       },
       {
-        src: "/apple-touch-icon.png",
+        src: "/logo.png",
         sizes: "180x180",
         type: "image/png",
       },
       {
-        src: "/icon-192x192.png",
+        src: "/logo.png",
         sizes: "192x192",
         type: "image/png",
         purpose: "maskable",
       },
       {
-        src: "/icon-512x512.png",
+        src: "/logo.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "any",

@@ -10,9 +10,9 @@ import {
   WalletIcon,
   BarChart3Icon,
   Settings2Icon,
-  CoffeeIcon,
   TagIcon,
 } from "lucide-react"
+import Image from "next/image"
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
 import {
@@ -91,12 +91,12 @@ export const AppSidebar = ({
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="/">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <CoffeeIcon className="size-4" />
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-white overflow-hidden">
+                  <Image src="/logo.png" alt="CA.CO" width={32} height={32} className="object-contain" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Coffee Shop POS</span>
-                  <span className="truncate text-xs text-muted-foreground">Management System</span>
+                  <span className="truncate font-medium">CA.CO</span>
+                  <span className="truncate text-xs text-muted-foreground">Chill Area Coffee</span>
                 </div>
               </a>
             </SidebarMenuButton>
